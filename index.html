@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutor.Tax - Official Platform Fee Audit</title>
+    <link rel="icon" type="image/png" href="/static/tutortax.png" alt="Tax icon">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #003366;
+            --secondary: #990000;
+            --accent: #1a7dc4;
+            --light: #f0f5f9;
+            --dark: #2c3e50;
+            --success: #006600;
+            --warning: #ff9900;
+            --danger: #cc0000;
+            --gray-dark: #343a40;
+            --gray: #6c757d;
+            --gray-light: #dee2e6;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: #f7f9fc;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Header */
+        .header {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 1rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-weight: 700;
+            font-size: 1.5rem;
+            text-decoration: none;
+            color: white;
+        }
+
+        .logo-text {
+            margin-left: 0.5rem;
+        }
+
+        .official-seal {
+            width: 50px;
+            height: 50px;
+            margin-right: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover {
+            color: var(--gray-light);
+        }
+
+        /* Main content */
+        .main {
+            padding: 2rem 0;
+        }
+
+        /* Hero section */
+        .hero {
+            background: linear-gradient(rgba(0, 51, 102, 0.9), rgba(0, 51, 102, 0.8)), url("/api/placeholder/1200/300");
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+            border-bottom: 5px solid var(--secondary);
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .official-label {
+            background: var(--secondary);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        /* Card styles */
+        .card {
+            background: white;
+            border-radius: 6px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+            overflow: hidden;
+            border: 1px solid var(--gray-light);
+        }
+
+        .card-header {
+            background: var(--primary);
+            color: white;
+            padding: 1rem;
+            font-weight: 700;
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .card-header i {
+            margin-right: 0.75rem;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        /* Form styles */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem;
+            font-size: 1rem;
+            border: 1px solid var(--gray-light);
+            border-radius: 4px;
+            background: #f9f9f9;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(26, 125, 196, 0.2);
+        }
+
+        .input-group {
+            position: relative;
+        }
+
+        .input-group-prepend {
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+        }
+
+        .currency-input {
+            padding-left: 1.75rem;
+        }
+
+        /* Button styles */
+        .btn {
+            display: inline-block;
+            font-weight: 600;
+            text-align: center;
+            vertical-align: middle;
+            user-select: none;
+            border: 1px solid transparent;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            border-radius: 4px;
+            transition: all 0.15s ease-in-out;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #002855;
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #800000;
+        }
+
+        .btn-block {
+            display: block;
+            width: 100%;
+        }
+
+        /* Results section */
+        .results-section {
+            display: none;
+        }
+
+        .audit-heading {
+            color: var(--secondary);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--secondary);
+        }
+
+        .audit-box {
+            background: #f9f9f9;
+            border: 1px solid var(--gray-light);
+            border-radius: 4px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .audit-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        .audit-row:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .audit-label {
+            font-weight: 500;
+        }
+
+        .audit-value {
+            font-weight: 700;
+        }
+
+        .audit-value.positive {
+            color: var(--success);
+        }
+
+        .audit-value.negative {
+            color: var(--danger);
+        }
+
+        .official-stamp {
+            background: #f9f9f9;
+            border: 2px dashed var(--gray);
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 2rem auto;
+            transform: rotate(-15deg);
+            color: var(--secondary);
+            font-weight: 700;
+            font-size: 1rem;
+            text-align: center;
+        }
+
+        /* Chart containers */
+        .chart-container {
+            position: relative;
+            height: 400px;
+            margin-top: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Table styles */
+        .audit-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1.5rem;
+        }
+
+        .audit-table th,
+        .audit-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        .audit-table th {
+            background-color: #f2f2f2;
+            font-weight: 700;
+        }
+
+        .audit-table tbody tr:hover {
+            background-color: #f9f9f9;
+        }
+
+        .audit-table .fee-high {
+            color: var(--danger);
+            font-weight: 700;
+        }
+
+        .audit-table .fee-medium {
+            color: var(--warning);
+            font-weight: 700;
+        }
+
+        .audit-table .fee-low {
+            color: var(--success);
+            font-weight: 700;
+        }
+
+        /* Official document section */
+        .official-document {
+            background-color: white;
+            border: 1px solid #ccc;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .document-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 1rem;
+        }
+
+        .document-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .document-meta {
+            text-align: right;
+            font-size: 0.875rem;
+        }
+
+        .tax-notice {
+            margin-bottom: 1.5rem;
+        }
+
+        .tax-notice-title {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--secondary);
+            border-bottom: 1px solid var(--gray-light);
+            padding-bottom: 0.5rem;
+        }
+
+        .tax-notice-content {
+            padding-left: 1rem;
+            border-left: 3px solid var(--primary);
+        }
+
+        .tax-bracket-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .tax-bracket-list li {
+            margin-bottom: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .document-footer {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--gray-light);
+            font-size: 0.875rem;
+            font-style: italic;
+            color: var(--gray);
+        }
+
+        .watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-30deg);
+            font-size: 8rem;
+            opacity: 0.07;
+            font-weight: 900;
+            color: var(--secondary);
+            pointer-events: none;
+        }
+
+        /* Call to action section */
+        .cta-section {
+            background: linear-gradient(to right, var(--primary), #004080);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .cta-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-description {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .savings-highlight {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 0 1.5rem;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-heading {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-link {
+            display: block;
+            color: var(--gray-light);
+            text-decoration: none;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-link:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--gray-light);
+            font-size: 0.875rem;
+        }
+
+        /* Responsiveness */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .card-header {
+                font-size: 1.1rem;
+            }
+
+            .chart-container {
+                height: 300px;
+            }
+
+            .document-header {
+                flex-direction: column;
+            }
+
+            .document-meta {
+                text-align: left;
+                margin-top: 1rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-title {
+                font-size: 1.75rem;
+            }
+
+            .nav-links {
+                gap: 0.75rem;
+            }
+
+            .official-stamp {
+                width: 100px;
+                height: 100px;
+                font-size: 0.875rem;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animation for warnings */
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.03);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .warning-pulse {
+            animation: pulse 2s infinite ease-in-out;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container container">
+            <a href="/" class="logo">
+                <div class="logo-text">TUTOR.TAX</div>
+            </a>
+
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <span class="official-label">OFFICIAL NOTICE</span>
+                <h1 class="hero-title">PLATFORM FEE AUDIT ALERT</h1>
+                <p class="hero-subtitle">The Bureau of Tutoring Income Protection has determined that most tutoring
+                    platforms are imposing excessive fee structures that significantly reduce tutoring professionals'
+                    earnings.</p>
+                <a href="#audit-calculator" class="btn btn-secondary">
+                    <i class="fas fa-calculator"></i> Begin Your Platform Fee Audit
+                </a>
+            </div>
+        </section>
+
+        <!-- Audit Calculator Section -->
+        <section id="audit-calculator" class="container" style="padding-top: 2rem;">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-file-invoice-dollar"></i> OFFICIAL PLATFORM FEE AUDIT CALCULATOR
+                </div>
+                <div class="card-body">
+                    <p class="mb-4">Complete this official form to generate your personalized platform fee audit report
+                        and determine your potential tax recovery options.</p>
+
+                    <form id="audit-form">
+                        <div class="form-group">
+                            <label for="rate" class="form-label">Your Hourly Rate</label>
+                            <div class="input-group">
+                                <span class="input-group-prepend">$</span>
+                                <input type="number" id="rate" class="form-control currency-input"
+                                    placeholder="100" min="1" step="0.01">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="platform" class="form-label">Select Platform for Audit</label>
+                            <select id="platform" class="form-control">
+                                <option value="wyzant">Wyzant (25% - HIGH FEE ALERT)</option>
+                                <option value="preply">Preply (18-33% - VARIABLE SCALE ALERT)</option>
+                                <option value="cambly">Cambly (~$10/hr - FIXED RATE ALERT)</option>
+                                <option value="tutorcom">Tutor.com (20-30% - VARIABLE FEE ALERT)</option>
+                                <option value="italki">iTalki (15% - MODERATE FEE)</option>
+                                <option value="chegg">Chegg (30-50% - EXCESSIVE FEE ALERT)</option>
+                                <option value="studypool">StudyPool (20-50% - HIGH VARIABLE ALERT)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="hours" class="form-label">Weekly Teaching Hours</label>
+                            <input type="number" id="hours" class="form-control" placeholder="15" min="1"
+                                step="0.5">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="weeks" class="form-label">Weeks Teaching Per Year</label>
+                            <input type="number" id="weeks" class="form-control" placeholder="40" min="1"
+                                max="52" value="48">
+                        </div>
+
+                        <button type="button" onclick="calculateAudit()" class="btn btn-primary btn-block">
+                            <i class="fas fa-search-dollar"></i> GENERATE OFFICIAL AUDIT REPORT
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Results Section - Initially Hidden -->
+            <div id="results-section" class="results-section">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-file-contract"></i> YOUR OFFICIAL PLATFORM FEE AUDIT RESULTS
+                    </div>
+                    <div class="card-body">
+                        <h3 class="audit-heading">
+                            <i class="fas fa-exclamation-triangle"></i> FEE BURDEN ANALYSIS
+                        </h3>
+                        <div class="audit-box" id="weekly-results">
+                            <!-- Weekly results will be inserted here -->
+                        </div>
+
+                        <h3 class="audit-heading">
+                            <i class="fas fa-calendar-alt"></i> ANNUAL FINANCIAL IMPACT
+                        </h3>
+                        <div class="audit-box" id="annual-results">
+                            <!-- Annual results will be inserted here -->
+                        </div>
+
+                        <h3 class="audit-heading">
+                            <i class="fas fa-piggy-bank"></i> POTENTIAL FEE RECOVERY
+                        </h3>
+                        <div class="audit-box" id="savings-results">
+                            <!-- Savings results will be inserted here -->
+                        </div>
+
+                        <div class="official-stamp">
+                            OFFICIALLY<br>AUDITED
+                        </div>
+
+                        <h3 class="audit-heading">
+                            <i class="fas fa-chart-pie"></i> FEE DISTRIBUTION VISUALIZATION
+                        </h3>
+                        <div class="chart-container">
+                            <canvas id="feePieChart"></canvas>
+                        </div>
+
+                        <a href="#platform-analysis" class="btn btn-secondary btn-block">
+                            <i class="fas fa-search-plus"></i> VIEW COMPLETE PLATFORM ANALYSIS
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Platform Analysis Section -->
+        <section id="platform-analysis" class="container" style="padding-top: 2rem;">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-balance-scale"></i> COMPREHENSIVE PLATFORM FEE AUDIT REPORT
+                </div>
+                <div class="card-body">
+                    <h3 class="audit-heading">
+                        <i class="fas fa-chart-bar"></i> PLATFORM FEE COMPARISON
+                    </h3>
+                    <div class="chart-container">
+                        <canvas id="feeBarChart"></canvas>
+                    </div>
+
+                    <h3 class="audit-heading">
+                        <i class="fas fa-table"></i> DETAILED PLATFORM FEE ANALYSIS
+                    </h3>
+                    <table class="audit-table">
+                        <thead>
+                            <tr>
+                                <th>Platform</th>
+                                <th>Fee Structure</th>
+                                <th>Fee Range</th>
+                                <th>Assessment</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Cambly</td>
+                                <td>Fixed Rate</td>
+                                <td class="fee-high">Up to 67%</td>
+                                <td>EXCESSIVE - Exceeds highest tax bracket</td>
+                            </tr>
+                            <tr>
+                                <td>Chegg</td>
+                                <td>Variable</td>
+                                <td class="fee-high">30-50%</td>
+                                <td>EXCESSIVE - Comparable to combined federal and state taxes</td>
+                            </tr>
+                            <tr>
+                                <td>StudyPool</td>
+                                <td>Variable</td>
+                                <td class="fee-high">20-50%</td>
+                                <td>EXCESSIVE - Unpredictable fee structure</td>
+                            </tr>
+                            <tr>
+                                <td>Wyzant</td>
+                                <td>Fixed</td>
+                                <td class="fee-medium">25%</td>
+                                <td>HIGH - Quarter of all income</td>
+                            </tr>
+                            <tr>
+                                <td>Preply</td>
+                                <td>Sliding Scale</td>
+                                <td class="fee-medium">18-33%</td>
+                                <td>HIGH - Complex tier structure</td>
+                            </tr>
+                            <tr>
+                                <td>iTalki</td>
+                                <td>Fixed</td>
+                                <td class="fee-medium">15%</td>
+                                <td>MODERATE - Below average for industry</td>
+                            </tr>
+
+                            <tr>
+                                <td>R3X</td>
+                                <td>Fixed</td>
+                                <td class="fee-low">5%</td>
+                                <td>FAIR - Lowest in industry</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Official Document Section -->
+            <div class="official-document">
+                <div class="watermark">AUDITED</div>
+                <div class="document-header">
+                    <div class="document-title">TUTORING PLATFORM FEE DISCLOSURE</div>
+                    <div class="document-meta">
+                        <p>Form FP-1099</p>
+                        <p>Bureau of Tutoring Income Protection</p>
+                        <p>Revision: 2025-03</p>
+                    </div>
+                </div>
+
+                <div class="tax-notice">
+                    <h3 class="tax-notice-title">OFFICIAL NOTICE: EXCESSIVE PLATFORM FEES</h3>
+                    <div class="tax-notice-content">
+                        <p class="mb-3">This official audit has determined that most tutoring platforms impose fee rates
+                            that exceed standard business service fees and even federal tax rates:</p>
+
+                        <ul class="tax-bracket-list">
+                            <li>
+                                <span>Top Federal Income Tax Rate:</span>
+                                <span>37%</span>
+                            </li>
+                            <li>
+                                <span>Average Credit Card Processing Fee:</span>
+                                <span>3%</span>
+                            </li>
+                            <li>
+                                <span>Standard SaaS Commission:</span>
+                                <span>10-15%</span>
+                            </li>
+                            <li>
+                                <span>Cambly Platform Fee Rate:</span>
+                                <span class="fee-high">Up to 67%</span>
+                            </li>
+                            <li>
+                                <span>Chegg Platform Fee Rate:</span>
+                                <span class="fee-high">Up to 50%</span>
+                            </li>
+                            <li>
+                                <span>Average Tutoring Platform Fee:</span>
+                                <span class="fee-medium">~25%</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="tax-notice">
+                    <h3 class="tax-notice-title">RECOMMENDED ACTION</h3>
+                    <div class="tax-notice-content">
+                        <p>Based on this audit, tutoring professionals should consider transitioning to platforms with
+                            fee structures below 15% to maximize income potential and ensure fair compensation for
+                            services rendered.</p>
+                    </div>
+                </div>
+
+                <div class="document-footer">
+                    <p>This is an informational document and not a legal tax form. It illustrates the comparative burden
+                        of platform fees relative to standard business expenses and tax rates.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action Section -->
+        <section class="cta-section">
+            <div class="container">
+                <h2 class="cta-title">RECLAIM YOUR TUTORING INCOME</h2>
+                <div class="savings-highlight">
+                    <span>Up to <b>62%</b> REDUCTION IN PLATFORM FEES</span>
+                </div>
+                <p class="cta-description">R3X offers a fair 5% fee structure - the lowest verified rate in the industry
+                    for tutoring professionals.</p>
+                <a href="https://r3x.ai" class="btn btn-secondary">
+                    <i class="fas fa-external-link-alt"></i> EXPLORE R3X PLATFORM
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-container">
+                <div>
+                    <h3 class="footer-heading">Services</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" class="footer-link">Audit Calculator</a></li>
+                        <li><a href="#" class="footer-link">Fee Analysis</a></li>
+                        <li><a href="#" class="footer-link">Platform Comparison</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="footer-heading">Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" class="footer-link">Fee Guide</a></li>
+                        <li><a href="#" class="footer-link">Income Calculator</a></li>
+                        <li><a href="#" class="footer-link">Platform Directory</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="footer-heading">Company</h3>
+                    <ul class="footer-links">
+                        <li><a href="#" class="footer-link">About</a></li>
+                        <li><a href="#" class="footer-link">Blog</a></li>
+                        <li><a href="#" class="footer-link">FAQ</a></li>
+                        <li><a href="#" class="footer-link">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="footer-heading">Contact</h3>
+                    <ul class="footer-links">
+                        <li><a href="mailto:audit@tutor.tax" class="footer-link">audit@tutor.tax</a></li>
+                        <li><span class="footer-link">San Diego, CA</span></li>
+                        <li><span class="footer-link">United States</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2025 R3X.ai, Inc. All rights reserved. This site is for informational purposes only.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <script>
+        // Platform data
+        const platformData = [
+            { name: 'Cambly', fee: 67, type: 'Fixed Rate', assessment: 'EXCESSIVE' },
+            { name: 'Chegg', fee: 50, type: 'Variable', assessment: 'EXCESSIVE' },
+            { name: 'StudyPool', fee: 50, type: 'Variable', assessment: 'EXCESSIVE' },
+            { name: 'Preply', fee: 33, type: 'Sliding Scale', assessment: 'HIGH' },
+            { name: 'Wyzant', fee: 25, type: 'Fixed', assessment: 'HIGH' },
+            { name: 'Tutor.com', fee: 30, type: 'Variable', assessment: 'HIGH' },
+            { name: 'iTalki', fee: 15, type: 'Fixed', assessment: 'MODERATE' },
+            { name: 'R3X', fee: 5, type: 'Fixed', assessment: 'FAIR' }
+        ];
+
+        // Sort platforms by fee (highest to lowest)
+        platformData.sort((a, b) => b.fee - a.fee);
+
+        // Initialize charts on load
+        document.addEventListener('DOMContentLoaded', function () {
+            // Initialize Bar Chart
+            const barCtx = document.getElementById('feeBarChart').getContext('2d');
+            const barChart = new Chart(barCtx, {
+                type: 'bar',
+                data: {
+                    labels: platformData.map(p => p.name),
+                    datasets: [{
+                        label: 'Platform Fee (%)',
+                        data: platformData.map(p => p.fee),
+                        backgroundColor: platformData.map(p => {
+                            if (p.fee >= 40) return '#cc0000';
+                            if (p.fee >= 20) return '#ff9900';
+                            return '#006600';
+                        }),
+                        borderColor: '#2c3e50',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function (context) {
+                                    return `Fee: ${context.raw}%`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Fee Percentage (%)'
+                            },
+                            max: 70
+                        }
+                    },
+                    animation: {
+                        duration: 2000,
+                        easing: 'easeOutQuart'
+                    },
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+
+            // Initialize pie chart with default data (will be updated on calculation)
+            const pieCtx = document.getElementById('feePieChart').getContext('2d');
+            window.pieChart = new Chart(pieCtx, {
+                type: 'pie',
+                data: {
+                    labels: ['Your Income', 'Platform Fee'],
+                    datasets: [{
+                        data: [75, 25],
+                        backgroundColor: ['#006600', '#cc0000'],
+                        borderColor: '#ffffff',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function (context) {
+                                    return `${context.label}: ${context.raw}%`;
+                                }
+                            }
+                        }
+                    },
+                    animation: {
+                        animateRotate: true,
+                        animateScale: true
+                    }
+                }
+            });
+        });
+
+        // Calculate audit function
+        function calculateAudit() {
+            const rate = parseFloat(document.getElementById('rate').value) || 30; // Default $30/hr
+            const hours = parseFloat(document.getElementById('hours').value) || 10; // Default 10 hours/week
+            const weeks = parseFloat(document.getElementById('weeks').value) || 48; // Default 48 weeks/year
+            const platformSelect = document.getElementById('platform');
+            const platformValue = platformSelect.value;
+            const platformName = platformSelect.options[platformSelect.selectedIndex].text.split(' (')[0];
+
+            let feePercent = 0;
+
+            // Set fee percent based on platform
+            switch (platformValue) {
+                case 'wyzant': feePercent = 0.25; break;
+                case 'preply': feePercent = 0.25; break; // Average for simplicity
+                case 'cambly': feePercent = 0.67; break; // ~$10/hr vs $30/hr
+                case 'tutorcom': feePercent = 0.25; break;
+                case 'italki': feePercent = 0.15; break;
+                case 'chegg': feePercent = 0.40; break;
+                case 'studypool': feePercent = 0.35; break;
+                default: feePercent = 0.25;
+            }
+
+            // Weekly calculations
+            const weeklyGross = rate * hours;
+            const weeklyFee = weeklyGross * feePercent;
+            const weeklyNet = weeklyGross - weeklyFee;
+
+            // Annual calculations
+            const annualGross = weeklyGross * weeks;
+            const annualFee = weeklyFee * weeks;
+            const annualNet = weeklyNet * weeks;
+
+            // R3X comparison (5% fee)
+            const r3xFeePercent = 0.05;
+            const r3xWeeklyFee = weeklyGross * r3xFeePercent;
+            const r3xWeeklyNet = weeklyGross - r3xWeeklyFee;
+            const r3xAnnualFee = r3xWeeklyFee * weeks;
+            const r3xAnnualNet = r3xWeeklyNet * weeks;
+
+            // Savings calculations
+            const weeklySavings = weeklyFee - r3xWeeklyFee;
+            const annualSavings = annualFee - r3xAnnualFee;
+            const savingsPercent = ((feePercent - r3xFeePercent) / feePercent) * 100;
+
+            // Update weekly results
+            document.getElementById('weekly-results').innerHTML = `
+                <div class="audit-row">
+                    <div class="audit-label">Weekly Gross Earnings:</div>
+                    <div class="audit-value">${weeklyGross.toFixed(2)}</div>
+                </div>
+                <div class="audit-row">
+                    <div class="audit-label">Weekly Fee to ${platformName}:</div>
+                    <div class="audit-value negative">${weeklyFee.toFixed(2)} (${(feePercent * 100).toFixed(0)}%)</div>
+                </div>
+                <div class="audit-row">
+                    <div class="audit-label">Your Weekly Take-Home:</div>
+                    <div class="audit-value positive">${weeklyNet.toFixed(2)}</div>
+                </div>
+            `;
+
+            // Update annual results
+            document.getElementById('annual-results').innerHTML = `
+                <div class="audit-row">
+                    <div class="audit-label">Annual Gross Earnings:</div>
+                    <div class="audit-value">${annualGross.toFixed(2)}</div>
+                </div>
+                <div class="audit-row">
+                    <div class="audit-label">Annual Fee to ${platformName}:</div>
+                    <div class="audit-value negative">${annualFee.toFixed(2)}</div>
+                </div>
+                <div class="audit-row">
+                    <div class="audit-label">Your Annual Take-Home:</div>
+                    <div class="audit-value positive">${annualNet.toFixed(2)}</div>
+                </div>
+            `;
+
+            // Update savings results
+            document.getElementById('savings-results').innerHTML = `
+                <div class="audit-row warning-pulse">
+                    <div class="audit-label">R3X Annual Fee (5%):</div>
+                    <div class="audit-value">${r3xAnnualFee.toFixed(2)}</div>
+                </div>
+                <div class="audit-row warning-pulse">
+                    <div class="audit-label">R3X Annual Take-Home:</div>
+                    <div class="audit-value positive">${r3xAnnualNet.toFixed(2)}</div>
+                </div>
+                <div class="audit-row warning-pulse">
+                    <div class="audit-label">ANNUAL SAVINGS WITH R3X:</div>
+                    <div class="audit-value positive">${annualSavings.toFixed(2)}</div>
+                </div>
+                <div class="audit-row warning-pulse">
+                    <div class="audit-label">PLATFORM FEE REDUCTION:</div>
+                    <div class="audit-value positive">${savingsPercent.toFixed(0)}%</div>
+                </div>
+            `;
+
+            // Update pie chart
+            if (window.pieChart) {
+                window.pieChart.data.datasets[0].data = [100 - (feePercent * 100), feePercent * 100];
+                window.pieChart.options.plugins.title = {
+                    display: true,
+                    text: `${platformName} Fee Distribution`,
+                    font: {
+                        size: 16,
+                        weight: 'bold'
+                    }
+                };
+                window.pieChart.update();
+            }
+
+            // Show results section
+            document.getElementById('results-section').style.display = 'block';
+
+            // Scroll to results
+            document.getElementById('results-section').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+
+</html>
